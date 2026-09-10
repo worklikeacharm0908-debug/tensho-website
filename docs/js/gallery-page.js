@@ -9,7 +9,7 @@
   if (!grid) return;
 
   try {
-    const res  = await fetch('/data/gallery.json');
+    const res  = await fetch('data/gallery.json');
     const items = await res.json();
 
     if (items.length === 0) {
@@ -22,10 +22,10 @@
     }
 
     grid.innerHTML = items.map(item => `
-      <div class="gallery-item" data-src="/images/gallery/${item.filename}" data-type="${item.type || 'image'}">
+      <div class="gallery-item" data-src="images/gallery/${item.filename}" data-type="${item.type || 'image'}">
         ${item.type === 'video'
-          ? `<video src="/images/gallery/${item.filename}" muted playsinline preload="metadata"></video>`
-          : `<img src="/images/gallery/${item.filename}" alt="${item.caption || '天翔'}">`}
+          ? `<video src="images/gallery/${item.filename}" muted playsinline preload="metadata"></video>`
+          : `<img src="images/gallery/${item.filename}" alt="${item.caption || '天翔'}">`}
         ${item.caption ? `<div class="gallery-caption">${item.caption}</div>` : ''}
       </div>
     `).join('');
