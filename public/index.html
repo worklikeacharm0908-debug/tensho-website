@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天翔 | 京都府舞鶴市のお祭りお手伝い</title>
+  <meta name="description" content="天翔は、京都府舞鶴市を拠点に半径45km圏内のお祭りへお手伝いに伺います。">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ---- About ---- */
+    .about-section {
+      padding: 120px 40px;
+      background: var(--white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-section { padding: 72px 24px; }
+    }
+    .about-text h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      color: var(--black);
+      line-height: 1.5;
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+    .about-text p {
+      color: var(--text-light);
+      line-height: 2.1;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .about-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .about-stat-card {
+      background: var(--white);
+      padding: 36px 24px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .about-stat-card:hover { background: var(--gray-100); }
+    .about-stat-card:first-child {
+      grid-column: 1 / -1;
+      background: var(--black);
+    }
+    .about-stat-card:first-child:hover { background: var(--navy); }
+    .about-stat-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      display: block;
+      margin-bottom: 5px;
+      letter-spacing: 0.02em;
+    }
+    .about-stat-card:not(:first-child) .about-stat-num { color: var(--black); }
+    .about-stat-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .about-stat-card:not(:first-child) .about-stat-label { color: var(--text-light); }
+
+    /* ---- Services ---- */
+    .services-section {
+      padding: 120px 40px;
+      background: var(--gray-100);
+    }
+    @media (max-width: 600px) { .services-section { padding: 72px 24px; } }
+    .services-header {
+      max-width: 560px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+    .services-header h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+    .services-header p { color: var(--text-light); font-size: 0.88rem; line-height: 1.9; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      max-width: 1080px;
+      margin: 0 auto;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      background: var(--white);
+      padding: 40px 30px;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: var(--cream); }
+    .service-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .service-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .service-card h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      color: var(--black);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .service-card p { font-size: 0.84rem; color: var(--text-light); line-height: 1.9; }
+
+    /* ---- Area ---- */
+    .area-section {
+      padding: 120px 40px;
+      background: var(--white);
+      text-align: center;
+    }
+    @media (max-width: 600px) { .area-section { padding: 72px 24px; } }
+    .area-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+    .area-section > .container > p {
+      color: var(--text-light);
+      line-height: 2;
+      margin-bottom: 44px;
+      font-size: 0.88rem;
+    }
+    .area-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 56px;
+    }
+    .area-tag {
+      background: var(--gray-100);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 18px;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+    .area-tag.primary {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    /* ---- Member CTA ---- */
+    .member-cta-section {
+      padding: 120px 40px;
+      background: var(--gray-100);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) { .member-cta-section { padding: 72px 24px; } }
+    .member-cta-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+    .member-cta-section p { color: var(--text-light); line-height: 2; margin-bottom: 44px; font-size: 0.9rem; }
+    .cta-btns {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Divider ---- */
+    .thin-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <a href="/"><span class="logo-emblem">🏮</span><span class="logo-text">天翔</span></a>
+    </div>
+    <nav class="site-nav" id="site-nav">
+      <ul>
+        <li><a href="/" class="active">ホーム</a></li>
+        <li><a href="/members.html">メンバー紹介</a></li>
+        <li><a href="/schedule.html">スケジュール</a></li>
+        <li><a href="/gallery.html">ギャラリー</a></li>
+        <li><a href="/pricing.html">活動内容</a></li>
+        <li><a href="/contact.html" class="nav-cta">メンバー募集</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ヒーロー：フルスクリーン スライドショー -->
+  <section class="hero-full">
+    <div class="slideshow" aria-hidden="true">
+      <video class="slide-video" src="/videos/hero.mov" autoplay muted loop playsinline></video>
+      <div class="slide" style="background-image:url('/images/hero/hero1.jpg')"></div>
+      <div class="slide" style="background-image:url('/images/hero/hero2.jpg')"></div>
+      <div class="slide" style="background-image:url('/images/hero/hero3.jpg')"></div>
+      <div class="slide" style="background-image:url('/images/hero/hero4.jpg')"></div>
+      <div class="slide" style="background-image:url('/images/hero/hero5.jpg')"></div>
+    </div>
+    <div class="slideshow-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Maizuru Festival Support Team</div>
+      <h1 class="hero-title">
+        地域の祭りを、<br><em>次の世代へ。</em>
+      </h1>
+      <p class="hero-sub">
+        京都府舞鶴市を拠点に、半径45km圏内のお祭りへ。<br>
+        担い手不足に悩む地域の祭礼を、私たちが全力でお手伝いします。
+      </p>
+      <div class="hero-actions">
+        <a href="/contact.html" class="btn-hero-primary">メンバー募集中</a>
+        <a href="/schedule.html" class="btn-hero-secondary">スケジュールを見る</a>
+      </div>
+    </div>
+    <div class="slide-indicators" id="slide-indicators">
+      <div class="slide-dot active"></div>
+      <div class="slide-dot"></div>
+      <div class="slide-dot"></div>
+      <div class="slide-dot"></div>
+      <div class="slide-dot"></div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>↓</span>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- About セクション -->
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-label">About Us</span>
+        <h2>高齢化が進む地域で、<br>祭りの火を絶やさない。</h2>
+        <p>
+          近年、日本各地でお祭りの担い手不足が深刻化しています。
+          お神輿を担げる若者がいない、人手が足りないという声を何度も耳にしてきました。
+        </p>
+        <p>
+          天翔は、そんな地域のお祭りへ積極的に参加し、
+          一緒に盛り上げていきたいという思いから生まれました。
+          私たちから各地のお祭りに直接ご連絡し、お手伝いに伺います。
+        </p>
+        <a href="/members.html" class="btn-secondary" style="margin-top:20px; display:inline-flex;">
+          メンバーを見る →
+        </a>
+      </div>
+      <div class="about-visual">
+        <div class="about-stat-card">
+          <span class="about-stat-num">約10名</span>
+          <span class="about-stat-label">Active Members</span>
+        </div>
+        <div class="about-stat-card">
+          <span class="about-stat-num">45km</span>
+          <span class="about-stat-label">Service Radius</span>
+        </div>
+        <div class="about-stat-card">
+          <span class="about-stat-num">舞鶴市</span>
+          <span class="about-stat-label">Home Base</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="thin-divider"></div>
+
+  <!-- サービスセクション -->
+  <section class="services-section">
+    <div class="services-header">
+      <span class="section-label" style="margin: 0 auto 16px; display:flex; justify-content:center;">What We Do</span>
+      <h2>私たちにできること</h2>
+      <p>お祭りに関するお手伝いなら、内容・規模を問わず対応します</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <span class="service-icon">🎊</span>
+        <h3>お神輿担ぎ</h3>
+        <p>伝統的なお神輿担ぎに参加します。経験者・未経験者ともに真剣に取り組みます。</p>
+      </div>
+      <div class="service-card">
+        <span class="service-number">02</span>
+        <span class="service-icon">⛩️</span>
+        <h3>祭礼全般のサポート</h3>
+        <p>お神輿以外にも、祭礼に関わるさまざまなお手伝いに対応します。</p>
+      </div>
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <span class="service-icon">👥</span>
+        <h3>10名でお伺い</h3>
+        <p>現在約10名のメンバーが在籍。今後さらに増員予定で、より多くのお祭りへ参加します。</p>
+      </div>
+      <div class="service-card">
+        <span class="service-number">04</span>
+        <span class="service-icon">💬</span>
+        <h3>事前の打ち合わせ</h3>
+        <p>内容・報酬はすべてご相談ベース。事前に詳しくすり合わせを行ってから参加します。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="thin-divider"></div>
+
+  <!-- エリアセクション -->
+  <section class="area-section">
+    <div class="container">
+      <span class="section-label" style="margin: 0 auto 16px; display:flex; justify-content:center;">Service Area</span>
+      <h2>活動エリア</h2>
+      <p>
+        京都府舞鶴市を拠点に、半径45km圏内のお祭りへ参加しています。<br>
+        丹後地方・北近畿エリアが主な活動範囲です。
+      </p>
+      <div class="area-tags">
+        <span class="area-tag primary">📍 京都府舞鶴市（拠点）</span>
+        <span class="area-tag">京丹後市</span>
+        <span class="area-tag">宮津市</span>
+        <span class="area-tag">福知山市</span>
+        <span class="area-tag">綾部市</span>
+        <span class="area-tag">豊岡市（兵庫県）</span>
+        <span class="area-tag">小浜市（福井県）</span>
+        <span class="area-tag">その他 半径45km圏内</span>
+      </div>
+      <a href="/schedule.html" class="btn-secondary">スケジュールを確認する →</a>
+    </div>
+  </section>
+
+  <div class="thin-divider"></div>
+
+  <!-- メンバー募集CTA -->
+  <section class="member-cta-section">
+    <div class="container">
+      <span class="section-label" style="margin: 0 auto 16px; display:flex; justify-content:center;">Join Us</span>
+      <h2>一緒にお祭りを盛り上げませんか？</h2>
+      <p>
+        天翔では、新しいメンバーを募集しています。<br>
+        お祭りが好きな方、地域に貢献したい方、ぜひご参加ください。
+      </p>
+      <div class="cta-btns">
+        <a href="/members.html" class="btn-secondary">メンバーを見る</a>
+        <a href="/contact.html" class="btn-primary">メンバーに応募する</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-logo"><span>🏮</span> 天翔</p>
+        <p class="footer-area">京都府舞鶴市 ｜ 活動範囲：舞鶴市より半径45km圏内</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="/">ホーム</a>
+        <a href="/members.html">メンバー紹介</a>
+        <a href="/schedule.html">スケジュール</a>
+        <a href="/gallery.html">ギャラリー</a>
+        <a href="/pricing.html">活動内容</a>
+        <a href="/contact.html">メンバー募集</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 天翔 All Rights Reserved.</p>
+      <p class="footer-decoration">🏮 ⛩️ 🎊</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+(function () {
+  const dots = document.querySelectorAll('.slide-dot');
+  let current = 0;
+  setInterval(() => {
+    dots[current].classList.remove('active');
+    current = (current + 1) % 5;
+    dots[current].classList.add('active');
+  }, 5000);
+})();
+</script>
+</body>
+</html>

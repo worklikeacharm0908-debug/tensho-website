@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ギャラリー | 天翔</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <a href="/"><span class="logo-emblem">🏮</span><span class="logo-text">天翔</span></a>
+    </div>
+    <nav class="site-nav" id="site-nav">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/members.html">メンバー紹介</a></li>
+        <li><a href="/schedule.html">スケジュール</a></li>
+        <li><a href="/gallery.html" class="active">ギャラリー</a></li>
+        <li><a href="/pricing.html">活動内容</a></li>
+        <li><a href="/contact.html" class="nav-cta">メンバー募集</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Gallery</span>
+      <h1>ギャラリー</h1>
+      <p>メンバーの活動写真をご覧ください</p>
+    </div>
+  </section>
+
+  <section class="gallery-section" style="padding:96px 40px;">
+    <div class="container">
+
+      <span class="section-label">Photo Gallery</span>
+      <h2 class="section-title">フォトギャラリー</h2>
+      <p class="section-subtitle">随時更新していきます</p>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <div style="grid-column:1/-1; text-align:center; padding:60px 0; color:var(--text-light);">
+          <div style="font-size:2rem; margin-bottom:12px;">📷</div>
+          <p>読み込み中...</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="gallery-modal" id="gallery-modal">
+    <button class="gallery-modal-close" id="modal-close">✕</button>
+    <img id="modal-image" src="" alt="">
+    <video id="modal-video" controls hidden></video>
+  </div>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>一緒に活動しませんか</h2>
+      <p>新しいメンバーを随時募集しています</p>
+      <a href="/contact.html" class="btn-hero-primary">メンバーに応募する</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-logo"><span>🏮</span> 天翔</p>
+        <p class="footer-area">京都府舞鶴市 ｜ 活動範囲：舞鶴市より半径45km圏内</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="/">ホーム</a>
+        <a href="/members.html">メンバー紹介</a>
+        <a href="/schedule.html">スケジュール</a>
+        <a href="/gallery.html">ギャラリー</a>
+        <a href="/pricing.html">活動内容</a>
+        <a href="/contact.html">メンバー募集</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 天翔 All Rights Reserved.</p>
+      <p class="footer-decoration">🏮 ⛩️ 🎊</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script src="/js/gallery-page.js"></script>
+</body>
+</html>

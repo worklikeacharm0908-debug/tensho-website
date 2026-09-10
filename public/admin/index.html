@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ログイン | 天翔</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-login-page">
+  <div class="admin-login-box">
+    <div class="logo">🏮</div>
+    <h1>天翔</h1>
+    <p>管理者ページへのログイン</p>
+
+    <div id="login-error" class="alert alert-error"></div>
+
+    <form id="login-form">
+      <div class="form-group" style="text-align:left;">
+        <label for="password" style="font-size:0.9rem; font-weight:700; color:var(--navy);">
+          パスワード
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="パスワードを入力"
+          required
+          style="margin-top:6px;"
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        style="width:100%; justify-content:center; margin-top:16px; font-size:1rem;"
+        id="login-btn"
+      >
+        ログイン
+      </button>
+    </form>
+
+    <p style="margin-top:20px; font-size:0.78rem; color:var(--text-light);">
+      初期パスワード: <code>maizuru2024</code><br>
+      ログイン後、管理画面からパスワードを変更してください。
+    </p>
+
+    <p style="margin-top:12px;">
+      <a href="/" style="font-size:0.85rem; color:var(--navy-light);">← サイトに戻る</a>
+    </p>
+  </div>
+</div>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  const password = document.getElementById('password').value;
+
+  btn.textContent = 'ログイン中...';
+  btn.disabled = true;
+  errEl.classList.remove('show');
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    const data = await res.json();
+    if (data.success) {
+      window.location.href = '/admin/dashboard.html';
+    } else {
+      errEl.textContent = data.error || 'ログインに失敗しました';
+      errEl.classList.add('show');
+    }
+  } catch {
+    errEl.textContent = 'エラーが発生しました。再度お試しください。';
+    errEl.classList.add('show');
+  } finally {
+    btn.textContent = 'ログイン';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

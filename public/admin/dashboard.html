@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 | 天翔</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-header">
+  <div class="admin-header-logo">
+    <span>🏮</span>
+    <span>天翔 管理画面</span>
+  </div>
+  <div class="admin-header-actions">
+    <a href="/" target="_blank" class="btn-sm btn-outline">サイトを開く ↗</a>
+    <button class="btn-sm btn-danger" id="logout-btn">ログアウト</button>
+  </div>
+</header>
+
+<div class="admin-layout">
+
+  <nav class="admin-sidebar">
+    <ul>
+      <li>
+        <a href="#" class="active" data-section="schedule">
+          <span class="menu-icon">📅</span> スケジュール管理
+        </a>
+      </li>
+      <li>
+        <a href="#" data-section="contacts">
+          <span class="menu-icon">📩</span> 応募一覧
+          <span id="unread-badge" style="background:var(--red);color:white;padding:1px 7px;font-size:0.75rem;margin-left:auto;display:none;font-weight:700;"></span>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-section="members">
+          <span class="menu-icon">👥</span> メンバー管理
+        </a>
+      </li>
+      <li>
+        <a href="#" data-section="gallery">
+          <span class="menu-icon">🖼️</span> ギャラリー管理
+        </a>
+      </li>
+      <li>
+        <a href="#" data-section="password">
+          <span class="menu-icon">🔐</span> パスワード変更
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="admin-main">
+
+    <!-- ===== スケジュール管理 ===== -->
+    <section class="admin-section active" id="section-schedule">
+      <h2 class="admin-section-title">📅 スケジュール管理</h2>
+
+      <!-- 追加フォーム -->
+      <div class="admin-card">
+        <h3>お祭りを追加</h3>
+        <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:16px;">
+          日付とお祭り名（神社名）を入力して追加してください。
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+          <div class="form-group" style="margin:0; flex:0 0 auto;">
+            <label style="font-size:0.78rem; font-weight:700; letter-spacing:0.06em; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase;">日付</label>
+            <input type="date" id="schedule-date-input" style="padding:10px 12px; border:1px solid var(--border); font-size:0.9rem; font-family:'Noto Sans JP',sans-serif; width:180px;">
+          </div>
+          <div class="form-group" style="margin:0; flex:1; min-width:200px;">
+            <label style="font-size:0.78rem; font-weight:700; letter-spacing:0.06em; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase;">お祭り名（神社名）</label>
+            <input type="text" id="schedule-name-input" placeholder="例：○○神社" style="padding:10px 12px; border:1px solid var(--border); font-size:0.9rem; font-family:'Noto Sans JP',sans-serif; width:100%;">
+          </div>
+          <button class="btn-primary" id="add-schedule-btn" style="flex:0 0 auto; padding:10px 24px; white-space:nowrap;">
+            追加する
+          </button>
+        </div>
+        <div id="schedule-msg" class="alert" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- 登録済みリスト -->
+      <div class="admin-card">
+        <h3>登録済みスケジュール</h3>
+        <div id="schedule-list-admin">
+          <p style="font-size:0.85rem; color:var(--text-light);">読み込み中...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 応募一覧 ===== -->
+    <section class="admin-section" id="section-contacts">
+      <h2 class="admin-section-title">📩 応募一覧</h2>
+
+      <div class="admin-card">
+        <div id="contacts-loading" style="text-align:center; padding:30px; color:var(--text-light);">読み込み中...</div>
+        <div id="contacts-empty" style="display:none; text-align:center; padding:30px; color:var(--text-light);">
+          <div style="font-size:2rem; margin-bottom:8px;">📭</div>
+          <p>応募はまだありません</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="contact-table" id="contacts-table" style="display:none;">
+            <thead>
+              <tr>
+                <th>状態</th>
+                <th>受信日時</th>
+                <th>お名前</th>
+                <th>メール</th>
+                <th>詳細</th>
+              </tr>
+            </thead>
+            <tbody id="contacts-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== メンバー管理 ===== -->
+    <section class="admin-section" id="section-members">
+      <h2 class="admin-section-title">👥 メンバー管理</h2>
+
+      <div class="admin-card">
+        <h3>集合写真のアップロード</h3>
+        <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:16px;">
+          アップロードした写真がメンバー紹介ページに自動で表示されます。
+        </p>
+        <div class="gallery-upload-area">
+          <input type="file" id="member-photo-input" accept="image/*" multiple>
+          <label for="member-photo-input" style="cursor:pointer;display:block;">
+            <div style="font-size:2.5rem;margin-bottom:10px;">📸</div>
+            <p style="font-weight:700;color:var(--black);">クリックして写真を選択</p>
+            <p style="font-size:0.8rem;color:var(--text-light);margin-top:6px;">JPG, PNG対応 / 最大10MB</p>
+          </label>
+        </div>
+        <button class="btn-primary" id="member-upload-btn" style="margin-top:12px;">
+          アップロード
+        </button>
+        <div id="member-upload-msg" class="alert" style="margin-top:12px;"></div>
+
+        <div style="margin-top:20px;">
+          <h4 style="font-size:0.9rem; color:var(--black); margin-bottom:12px; font-weight:700;">現在の写真</h4>
+          <div class="admin-gallery-grid" id="member-photos-grid">
+            <p style="font-size:0.85rem;color:var(--text-light);">読み込み中...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <h3>グループコメントの編集</h3>
+        <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:12px;">
+          メンバー紹介ページに表示されるコメントを編集できます。
+        </p>
+        <div class="form-group">
+          <textarea id="member-comment-input" style="width:100%;min-height:180px;padding:12px;border:1px solid var(--border);font-size:0.9rem;font-family:'Noto Sans JP',sans-serif;line-height:1.8;resize:vertical;"></textarea>
+        </div>
+        <button class="btn-primary" id="save-comment-btn">
+          コメントを保存
+        </button>
+        <span id="comment-saved-msg" style="display:none;margin-left:12px;color:#2d8a50;font-size:0.85rem;">✔ 保存しました</span>
+      </div>
+    </section>
+
+    <!-- ===== ギャラリー管理 ===== -->
+    <section class="admin-section" id="section-gallery">
+      <h2 class="admin-section-title">🖼️ ギャラリー管理</h2>
+
+      <div class="admin-card">
+        <h3>写真・動画をアップロード</h3>
+        <div class="gallery-upload-area" id="upload-area">
+          <input type="file" id="photo-input" accept="image/*,video/*" multiple>
+          <label for="photo-input" style="cursor:pointer; display:block;">
+            <div style="font-size:2.5rem; margin-bottom:10px;">📷</div>
+            <p style="font-weight:700; color:var(--black);">クリックまたはドラッグして写真・動画を追加</p>
+            <p style="font-size:0.8rem; color:var(--text-light); margin-top:6px;">JPG, PNG, GIF, MP4, MOV対応 / 1ファイル最大100MB</p>
+          </label>
+        </div>
+
+        <div class="form-group" style="margin-top:16px; max-width:400px;">
+          <label style="font-size:0.78rem; font-weight:700; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;">キャプション（任意）</label>
+          <input type="text" id="photo-caption" placeholder="写真の説明を入力">
+        </div>
+
+        <button class="btn-primary" id="upload-btn" style="margin-top:8px;">
+          アップロード
+        </button>
+
+        <div id="upload-msg" class="alert" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="admin-card">
+        <h3>アップロード済み写真</h3>
+        <div id="admin-gallery-grid" class="admin-gallery-grid">
+          <p style="font-size:0.85rem; color:var(--text-light);">読み込み中...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== パスワード変更 ===== -->
+    <section class="admin-section" id="section-password">
+      <h2 class="admin-section-title">🔐 パスワード変更</h2>
+
+      <div class="admin-card password-form">
+        <div id="pw-success" class="alert alert-success"></div>
+        <div id="pw-error" class="alert alert-error"></div>
+
+        <div class="form-group">
+          <label style="font-size:0.78rem; font-weight:700; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;">現在のパスワード</label>
+          <input type="password" id="current-pw" placeholder="現在のパスワード">
+        </div>
+        <div class="form-group">
+          <label style="font-size:0.78rem; font-weight:700; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;">新しいパスワード（6文字以上）</label>
+          <input type="password" id="new-pw" placeholder="新しいパスワード">
+        </div>
+        <div class="form-group">
+          <label style="font-size:0.78rem; font-weight:700; color:var(--black); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;">新しいパスワード（確認）</label>
+          <input type="password" id="confirm-pw" placeholder="もう一度入力">
+        </div>
+        <button class="btn-primary" id="change-pw-btn">
+          パスワードを変更する
+        </button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- お問い合わせ詳細モーダル -->
+<div class="contact-detail-modal" id="contact-modal">
+  <div class="contact-detail-box">
+    <button class="modal-close-btn" id="modal-close-btn">✕</button>
+    <h3>📩 応募詳細</h3>
+    <div id="contact-detail-content"></div>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+node_modules/
+.env
+data/admin.json
+data/contacts.json
+祭り*.jpg
+祭り*.MOV

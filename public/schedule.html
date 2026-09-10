@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スケジュール | 天翔</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .schedule-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .schedule-item:first-child { border-top: 1px solid var(--border); }
+    .schedule-item:hover { background: var(--gray-100); }
+    .schedule-date {
+      padding: 20px 24px;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem;
+      color: var(--black);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+    .schedule-name {
+      padding: 20px 28px;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .schedule-empty {
+      text-align: center;
+      padding: 72px 24px;
+      color: var(--text-light);
+      border: 1px solid var(--border);
+    }
+    .schedule-empty span { font-size: 2.4rem; display: block; margin-bottom: 14px; }
+    @media (max-width: 560px) {
+      .schedule-item { grid-template-columns: 1fr; }
+      .schedule-date { border-right: none; border-bottom: 1px solid var(--border); padding: 14px 20px 8px; font-size: 0.85rem; }
+      .schedule-name { padding: 8px 20px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <a href="/"><span class="logo-emblem">🏮</span><span class="logo-text">天翔</span></a>
+    </div>
+    <nav class="site-nav" id="site-nav">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/members.html">メンバー紹介</a></li>
+        <li><a href="/schedule.html" class="active">スケジュール</a></li>
+        <li><a href="/gallery.html">ギャラリー</a></li>
+        <li><a href="/pricing.html">活動内容</a></li>
+        <li><a href="/contact.html" class="nav-cta">メンバー募集</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Schedule</span>
+      <h1>スケジュール</h1>
+      <p>参加予定のお祭り一覧です</p>
+    </div>
+  </section>
+
+  <section style="padding:96px 40px; background:var(--white);">
+    <div class="container">
+      <div class="schedule-list" id="schedule-list">
+        <div class="schedule-empty">
+          <span>📅</span>
+          <p>読み込み中...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <p class="footer-logo"><span>🏮</span> 天翔</p>
+        <p class="footer-area">京都府舞鶴市 ｜ 活動範囲：舞鶴市より半径45km圏内</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="/">ホーム</a>
+        <a href="/members.html">メンバー紹介</a>
+        <a href="/schedule.html">スケジュール</a>
+        <a href="/gallery.html">ギャラリー</a>
+        <a href="/pricing.html">活動内容</a>
+        <a href="/contact.html">メンバー募集</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 天翔 All Rights Reserved.</p>
+      <p class="footer-decoration">🏮 ⛩️ 🎊</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+(async function () {
+  const listEl = document.getElementById('schedule-list');
+  const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
+  }
+
+  try {
+    const res  = await fetch('/api/schedule');
+    const data = await res.json();
+    const events = data.events || [];
+
+    if (events.length === 0) {
+      listEl.innerHTML = `
+        <div class="schedule-empty">
+          <span>📅</span>
+          <p>現在、予定されているお祭りはありません</p>
+        </div>`;
+    } else {
+      listEl.innerHTML = events.map(ev => `
+        <div class="schedule-item">
+          <div class="schedule-date">${formatDate(ev.date)}</div>
+          <div class="schedule-name">${ev.name}</div>
+        </div>
+      `).join('');
+    }
+  } catch {
+    listEl.innerHTML = `
+      <div class="schedule-empty">
+        <span>⚠️</span>
+        <p>読み込みに失敗しました</p>
+      </div>`;
+  }
+})();
+</script>
+</body>
+</html>
